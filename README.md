@@ -38,6 +38,12 @@ trackpy report -p all  # All-time report
 trackpy report -c work  # Filter by category
 ```
 
+### Clear all tracking data
+```bash
+trackpy clear        # Clear with confirmation prompt
+trackpy clear -f     # Force clear without confirmation
+```
+
 ## Features
 
 - Track multiple activities with categories (work, study, personal)
@@ -45,3 +51,4 @@ trackpy report -c work  # Filter by category
 - Generate reports for different time periods
 - Filter reports by category
 - Beautiful terminal output with live tracking animation
+- Clear tracking history with safety confirmation

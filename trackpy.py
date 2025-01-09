@@ -311,5 +311,28 @@ def report(period, category):
 
     conn.close()
 
+@cli.command()
+@click.option('--force', '-f', is_flag=True, help='Skip confirmation prompt')
+def clear(force):
+    """Clear all tracking data."""
+    if not force:
+        if not click.confirm('[red]⚠️  Warning: This will delete all tracking data. Are you sure?[/red]', default=False):
+            console.print("[yellow]Operation cancelled.[/yellow]")
+            return
+
+    conn = sqlite3.connect('timetrack.db')
+    c = conn.cursor()
+    
+    # Get count of records before deletion
+    c.execute('SELECT COUNT(*) FROM activities')
+    count = c.fetchone()[0]
+    
+    # Delete all records
+    c.execute('DELETE FROM activities')
+    conn.commit()
+    conn.close()
+    
+    console.print(f"[green]✓ Successfully cleared {count} tracking records.[/green]")
+
 if __name__ == '__main__':
     cli()
